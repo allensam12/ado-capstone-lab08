@@ -1,0 +1,30 @@
+parameters:
+  nodeVersion: '18.x'
+
+steps:
+- task: NodeTool@0
+  displayName: Use Node.js
+  inputs:
+    versionSpec: ${{ parameters.nodeVersion }}
+
+- task: Cache@2
+  displayName: Cache npm
+  inputs:
+    key: 'npm | "$(Agent.OS)" | package-lock.json'
+    restoreKeys: |
+      npm | "$(Agent.OS)"
+    path: $(Pipeline.Workspace)/.npm
+
+- script: npm ci
+  displayName: Install dependencies
+  env:
+    npm_config_cache: $(Pipeline.Workspace)/.npm
+
+- script: npm run lint --if-present
+  displayName: Lint
+
+- script: npm test -- --ci
+  displayName: Run tests
+
+- script: npm run build --if-present
+  displayName: Build app
