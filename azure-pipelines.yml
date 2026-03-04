@@ -41,6 +41,17 @@ stages:
         targetPath: '$(Build.SourcesDirectory)'
         artifact: '$(artifactName)'
 
+    - task: UniversalPackages@0
+      displayName: Publish shared package
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+      inputs:
+        command: publish
+        publishDirectory: '$(Build.SourcesDirectory)'
+        feedsToUsePublish: 'internal'
+        vstsFeedPublish: 'lab08feed'
+        vstsFeedPackagePublish: 'checkout-api-drop'
+        versionOption: 'patch'
+
     - script: npm audit --audit-level=high || true
       displayName: Security audit (informational)
 
