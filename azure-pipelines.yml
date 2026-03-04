@@ -46,7 +46,7 @@ stages:
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       inputs:
         command: publish
-        publishDirectory: '$(Build.SourcesDirectory)'
+        publishDirectory: '$(Build.SourcesDirectory)/dist'
         feedsToUsePublish: 'internal'
         vstsFeedPublish: 'lab08feed'
         vstsFeedPackagePublish: 'checkout-api-drop'
