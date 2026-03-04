@@ -9,9 +9,11 @@ pr:
       - master
 
 variables:
-- group: lab08-secrets
-  artifactName: 'drop'
-  vmImage: 'ubuntu-latest'
+  - group: lab08-secrets
+  - name: artifactName
+    value: 'drop'
+  - name: vmImage
+    value: 'ubuntu-latest'
 
 stages:
 - stage: CI
