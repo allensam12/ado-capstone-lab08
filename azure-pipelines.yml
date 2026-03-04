@@ -9,6 +9,7 @@ pr:
       - master
 
 variables:
+- group: lab08-secrets
   artifactName: 'drop'
   vmImage: 'ubuntu-latest'
 
